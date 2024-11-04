@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Formulario de Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Formulario de Tareas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form (ngSubmit)="addTask()" #taskForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Título</ion-label>
+        <ion-input type="text" [(ngModel)]="newTask.title" name="title" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input type="text" [(ngModel)]="newTask.description" name="description" required></ion-input>
+      </ion-item>
+    </ion-list>
+    
+    <ion-button expand="none" type="submit" [disabled]="!taskForm.form.valid">Guardar Tarea</ion-button>
+    <ion-button expand="none" type="button" (click)="addAnotherTask()">Agregar Tarea</ion-button>
+  </form>
+
+  
+
+      <!-- Botones de acción -->
+      <ion-buttons slot="end">
+       
+      
+      </ion-buttons>
+  
+</ion-content>

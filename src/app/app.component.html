@@ -1,26 +1,31 @@
 <ion-app>
-  <ion-menu contentId="main-content">
+  <ion-menu side="start"  menuId="first"  contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu Content</ion-title>
+        <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
+
     <ion-content class="ion-padding">
-     <ion-menu-toggle>
+
+  <ion-menu-toggle>
            <ion-list>
           <ion-item button routerLink="/main">Main Page</ion-item>
-          <ion-item button routerLink="/product-list">Product List</ion-item>
+          <ion-item button routerLink="/task-form">Task Form</ion-item>
+          <ion-item button routerLink="/task-list">Task List</ion-item>
         </ion-list>
-        </ion-menu-toggle>
-       </ion-content>
-  </ion-menu>
+     </ion-menu-toggle>
+ </ion-content>
+</ion-menu>
+
+
   <div class="ion-page" id="main-content">
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Menu</ion-title>
+        
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
