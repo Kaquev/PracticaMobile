@@ -9,10 +9,7 @@ export const routes: Routes = [
     path: 'task-list',
     loadComponent: () => import('./task-list/task-list.page').then(m => m.TaskListPage)
   },
-  {
-    path: 'task-form',
-    loadComponent: () => import('./task-form/task-form.page').then( m => m.TaskFormPage)
-  },
+  
   {
     path: '',
     redirectTo: 'main',
