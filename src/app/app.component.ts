@@ -10,5 +10,27 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [IonicModule, RouterLink, CommonModule],
 })
-export class AppComponent  {
+export class AppComponent {
+  isAuthenticated = false;
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkLoginStatus();
+  }
+
+  checkLoginStatus() {
+    const authToken = localStorage.getItem('authToken');
+    this.isAuthenticated = !!authToken; // Verificar si el token existe
+    if (!authToken) {
+      this.router.navigate(['/login']); // Redirigir a la página de login si no hay token
+    }
+  }
+
+  logout() {
+    // Lógica para cerrar sesión, por ejemplo, eliminar tokens de autenticación
+    localStorage.removeItem('authToken'); // Ejemplo de eliminación de token
+    this.isAuthenticated = false;
+    this.router.navigate(['/home']); // Redirigir a la página de inicio
+  }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule} from '@ionic/angular';
 import { RouterLink } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +13,12 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, FormsModule, IonicModule, RouterLink],
 })
 export class HomePage implements OnInit {
+  isAuthenticated = false; // Variable para verificar si el usuario está autenticado
 
-  constructor() { }
+  constructor(private appComponent: AppComponent) {}
   ngOnInit() {
-    // Implementa cualquier lógica de inicialización aquí
-    console.log('HomePage initialized');
+    // Verificar si el usuario está autenticado 
+    this.isAuthenticated = this.appComponent.isAuthenticated;
   }
 
 }

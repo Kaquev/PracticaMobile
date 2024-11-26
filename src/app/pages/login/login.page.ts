@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
     IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle,IonRow, IonCol, IonText]
 })
 export class LoginPage implements OnInit {
-
+  isAuthenticated = false;
   form!:FormGroup
 
   constructor(private router: Router) { }
@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
     const {email,password} = this.form.value
     console.log("Email",email)
     console.log("password",password)
-    this.router.navigate(['/listar-cocteles'])
+    this.router.navigate(['/productos'])
   }
 
   goToRegister(){

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Lista de Productos</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openNewTaskForm()">Agregar Producto <ion-icon slot="icon-only" name="add"></ion-icon></ion-button>
+      <ion-button class="btn_agregar" color="primary" (click)="openNewTaskForm()">Agregar Producto <ion-icon slot="icon-only" name="add"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Lista de Productos</ion-title>
+      <ion-title size="medium">Lista de Productos</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -41,31 +41,49 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="newTask.name" name="name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Descripción</ion-label>
-          <ion-input [(ngModel)]="newTask.description" name="description"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">URL de la Imagen</ion-label>
-          <ion-input [(ngModel)]="newTask.image" name="image"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Categoría</ion-label>
-          <ion-input [(ngModel)]="newTask.category" name="category"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Precio</ion-label>
-          <ion-input [(ngModel)]="newTask.price" name="price" type="number"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Activo</ion-label>
-          <ion-toggle [(ngModel)]="newTask.active" name="active"></ion-toggle>
-        </ion-item>
-        <ion-button expand="full" (click)="addTask()">Guardar</ion-button>
+        <form [formGroup]="newTaskForm">
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="name"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="newTaskForm.get('name')?.invalid && newTaskForm.get('name')?.touched">
+            <small *ngIf="newTaskForm.get('name')?.hasError('required')">* El nombre es obligatorio</small>
+          </ion-text>
+          <ion-item>
+            <ion-label position="floating">Descripción</ion-label>
+            <ion-input formControlName="description"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="newTaskForm.get('description')?.invalid && newTaskForm.get('description')?.touched">
+            <small *ngIf="newTaskForm.get('description')?.hasError('required')">* La descripción es obligatoria</small>
+          </ion-text>
+          <ion-item>
+            <ion-label position="floating">URL de la Imagen</ion-label>
+            <ion-input formControlName="image"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="newTaskForm.get('image')?.invalid && newTaskForm.get('image')?.touched">
+            <small *ngIf="newTaskForm.get('image')?.hasError('required')">* La URL de la imagen es obligatoria</small>
+          </ion-text>
+          <ion-item>
+            <ion-label position="floating">Categoría</ion-label>
+            <ion-input formControlName="category"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="newTaskForm.get('category')?.invalid && newTaskForm.get('category')?.touched">
+            <small *ngIf="newTaskForm.get('category')?.hasError('required')">* La categoría es obligatoria</small>
+          </ion-text>
+          <ion-item>
+            <ion-label position="floating">Precio</ion-label>
+            <ion-input formControlName="price" type="number"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="newTaskForm.get('price')?.invalid && newTaskForm.get('price')?.touched">
+            <small *ngIf="newTaskForm.get('price')?.hasError('required')">* El precio es obligatorio</small>
+            <small *ngIf="newTaskForm.get('price')?.hasError('min')">* El precio debe ser mayor o igual a 0</small>
+          </ion-text>
+          <ion-item>
+            <ion-label position="floating">Activo</ion-label>
+            <ion-toggle formControlName="active"></ion-toggle>
+          </ion-item>
+          <ion-button class="btn_guardar" expand="medium" (click)="addTask()">Guardar</ion-button>
+        </form>
       </ion-content>
     </ng-template>
   </ion-modal>

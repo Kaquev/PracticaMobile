@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -11,16 +11,27 @@ import { ProductsService, Product } from '../../services/products.service';
   templateUrl: './productos.page.html',
   styleUrls: ['./productos.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonicModule, HttpClientModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductosPage implements OnInit {
   
   products: Product[] = [];
   showNewTaskForm = false;
-  newTask: Product = { _id: 0, name: '', price: 0, description: '', category: '', image: '', active: true };
 
-  constructor(private productsService: ProductsService) {}
+  newTask: Product = { _id: 0, name: '', price: 0, description: '', category: '', image: '', active: true };
+  newTaskForm: FormGroup;
+
+  constructor(private productsService: ProductsService, private fb: FormBuilder) {
+    this.newTaskForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      image: ['', Validators.required],
+      category: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+      active: [true]
+    });
+  }
 
   ngOnInit() {
     this.loadProducts();
@@ -35,11 +46,17 @@ export class ProductosPage implements OnInit {
   }
 
   loadProducts() {
-    this.productsService.getAllProducts().then(response => {
-      this.products = response.results;
-    }).catch(error => {
-      console.error('Error al cargar los productos', error);
-    });
+    const storedProducts = localStorage.getItem('products');
+    if (storedProducts) {
+      this.products = JSON.parse(storedProducts);
+    } else {
+      this.productsService.getAllProducts().then(response => {
+        this.products = response.results;
+        localStorage.setItem('products', JSON.stringify(this.products)); // Guardar en localStorage
+      }).catch(error => {
+        console.error('Error al cargar los productos', error);
+      });
+    }
   }
 
   addTask() {
@@ -49,7 +66,10 @@ export class ProductosPage implements OnInit {
       localStorage.setItem('products', JSON.stringify(this.products)); // Guardar en localStorage
       this.newTask = { _id: 0, name: '', price: 0, description: '', category: '', image: '', active: true };
       this.closeNewTaskForm();
+    } else {
+      this.newTaskForm.markAllAsTouched(); // Marcar todos los campos como tocados para mostrar errores
     }
+    
   }
 
   deleteTask(taskId: number) {

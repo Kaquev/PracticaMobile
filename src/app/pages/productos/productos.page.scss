@@ -1,0 +1,22 @@
+.btn_agregar {
+    --padding: 0.5rem 1rem; /* Espaciado interno */
+    //--border-radius: 4px; /* Bordes redondeados suaves */
+    font-size: 0.8rem; /* Tamaño de texto adecuado */
+    height: auto; /* Deja que el botón ajuste su altura automáticamente */
+    width: 100% !important; /* Ancho fijo */
+
+}
+.btn_guardar{
+    --padding: 0.5rem 1rem; /* Espaciado interno */
+    margin: 1em; /* Espaciado externo */
+    
+}  
+
+ion-row {
+    padding: 1em; /* Espaciado interno */
+   
+    font-size: 0.8rem; /* Tamaño de texto adecuado */
+    height: auto; /* Deja que el botón ajuste su altura automáticamente */
+   
+    //background-color: rgb(247, 249, 249);
+}

@@ -29,8 +29,8 @@
             </ion-text>
             <br>
             <ion-toggle [checked]="true" justify="end">Recordar usuario</ion-toggle><br /><br />
-            <ion-button class="custom-text" color="tertiary" expand="block" (click)="validar()">Iniciar sesion</ion-button>
-            <ion-button class="custom-text" color="medium" expand="block" (click)="goToRegister()" >Registrarme</ion-button>
+            <ion-button *ngIf="!isAuthenticated" class="custom-text" color="tertiary" expand="block" (click)="validar()">Iniciar sesión</ion-button>
+            <ion-button *ngIf="!isAuthenticated" class="custom-text" color="medium" expand="block" (click)="goToRegister()">Registrarme</ion-button>
           </form>
 
         </ion-card-content>
