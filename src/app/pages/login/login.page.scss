@@ -12,13 +12,13 @@ ion-card-header, ion-card-content {
 ion-card {
    
   text-decoration: dotted;
-  background: rgb(255, 255, 255) !important; /* Fondo blanco semitransparente para el card */
+  background: rgba(255, 255, 255, 0.75) !important; /* Fondo blanco semitransparente para el card */
   border-radius: 10px !important;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
 ion-card-title, ion-card-subtitle, ion-text, ion-label {
-  color: #000000 !important; /* Color */
+  
   font-size: 1.5em !important; /* Tamaño de la fuente */
 }
 ion-card-title, ion-card-subtitle {

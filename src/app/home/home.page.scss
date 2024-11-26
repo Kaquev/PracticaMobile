@@ -13,3 +13,22 @@
     justify-content: center;
     margin-top: 20px;
   }
+
+  .custom-content .custom-card {
+  flex-direction: column;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Asegura que tome toda la altura del contenido */
+  padding-top: 15em; /* Elimina cualquier padding extra del contenido */
+  margin: 0;
+  --background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Fondo degradado */
+  background-size: cover; /* Asegura que la imagen o el degradado cubra todo el espacio */
+    
+}
+
+
+    
+
+  ion-card-title, ion-card-subtitle {
+    text-align: center;
+}

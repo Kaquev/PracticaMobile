@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule,IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonCard, IonCardHeader, IonCardTitle, 
+  imports: [ReactiveFormsModule,IonContent, IonHeader, CommonModule, FormsModule,IonCard, IonCardHeader, IonCardTitle, 
     IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle,IonRow, IonCol, IonText]
 })
 export class LoginPage implements OnInit {
