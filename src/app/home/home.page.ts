@@ -5,17 +5,18 @@ import { IonicModule} from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.page.html',
-  styleUrls: ['./main.page.scss'],
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule, RouterLink],
 })
-export class MainPage implements OnInit {
+export class HomePage implements OnInit {
 
   constructor() { }
-
   ngOnInit() {
+    // Implementa cualquier lógica de inicialización aquí
+    console.log('HomePage initialized');
   }
 
 }

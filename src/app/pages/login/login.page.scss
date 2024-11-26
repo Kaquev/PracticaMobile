@@ -1,0 +1,45 @@
+ion-card-header, ion-card-content {
+  background-color:#ffffff !important;
+  //background-size: cover;
+}
+
+.custom-content {
+    --background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Fondo degradado */
+    background-size: cover; /* Asegura que la imagen o el degradado cubra todo el espacio */
+}
+
+
+ion-card {
+   
+  text-decoration: dotted;
+  background: rgb(255, 255, 255) !important; /* Fondo blanco semitransparente para el card */
+  border-radius: 10px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+ion-card-title, ion-card-subtitle, ion-text, ion-label {
+  color: #000000 !important; /* Color */
+  font-size: 1.5em !important; /* Tamaño de la fuente */
+}
+ion-card-title, ion-card-subtitle {
+  text-align: center;
+}
+
+ion-card-subtitle {
+  font-size: 1em !important;
+}
+
+ion-button {
+    width: 40% !important; /* Ajusta el ancho de los botones */
+    margin: 0 auto; /* Centra los botones */
+    padding: 10px; /* Añade un poco de espacio alrededor del texto del botón */ 
+    display: block; /* Asegura que los botones se comporten como bloques */
+    
+  }
+  .custom-text {
+    --ion-color-contrast: #f6f6f6 !important; /* Color personalizado del texto */
+    font-size: 1em !important;
+    text-align: center;
+    margin-top: 10px;
+  }
+  

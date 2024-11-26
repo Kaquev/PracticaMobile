@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-//import {IonRouterOutlet} from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+//import { CapacitorSQLite, SQLiteDBConnection } from '@capacitor-community/sqlite';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,5 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [IonicModule, RouterLink, CommonModule],
 })
-export class AppComponent {
-  
+export class AppComponent  {
 }

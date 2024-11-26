@@ -2,20 +2,21 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
-
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
-  { path: 'main', loadComponent: () => import('./main/main.page').then(m => m.MainPage) },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', loadComponent: () => import('./home/home.page').then(m => m.HomePage) },
   {
-    path: 'task-list',
-    loadComponent: () => import('./task-list/task-list.page').then(m => m.TaskListPage)
+    path: 'productos',
+    loadComponent: () => import('./pages/productos/productos.page').then(m => m.ProductosPage)
   },
-  
   {
-    path: '',
-    redirectTo: 'main',
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
+  },
+  {
+    path: '**', // Wildcard route for a 404 page
+    redirectTo: 'home',
     pathMatch: 'full'
   },
-  
 ];
 
 @NgModule({
