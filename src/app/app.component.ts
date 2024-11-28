@@ -23,7 +23,7 @@ export class AppComponent {
     const authToken = localStorage.getItem('authToken');
     this.isAuthenticated = !!authToken; // Verificar si el token existe
     if (!authToken) {
-      this.router.navigate(['/login']); // Redirigir a la página de login si no hay token
+      this.router.navigate(['/home']); // Redirigir a la página de login si no hay token
     }
   }
 

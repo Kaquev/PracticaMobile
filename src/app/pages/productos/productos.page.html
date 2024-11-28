@@ -22,6 +22,7 @@
       <ion-label>
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
+        <p>{{ product.category }}</p>
       </ion-label>
       <ion-button color="danger" (click)="deleteTask(product._id)">Eliminar</ion-button>
       <ion-icon name="trash-bin-outline"></ion-icon>
@@ -34,7 +35,7 @@
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Nuevo Producto</ion-title>
+          <ion-title>{{ editMode ? 'Editar Producto' : 'Nuevo Producto' }}</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeNewTaskForm()">Cerrar</ion-button>
           </ion-buttons>
@@ -82,7 +83,9 @@
             <ion-label position="floating">Activo</ion-label>
             <ion-toggle formControlName="active"></ion-toggle>
           </ion-item>
-          <ion-button class="btn_guardar" expand="medium" (click)="addTask()">Guardar</ion-button>
+          <ion-button class="btn_guardar" expand="medium" (click)="editMode ? updateTask() : addTask()">
+            {{ editMode ? 'Actualizar' : 'Guardar' }}
+          </ion-button>
         </form>
       </ion-content>
     </ng-template>
