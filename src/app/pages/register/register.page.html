@@ -1,106 +1,69 @@
-<ion-content class="custom-content" [fullscreen]="true"> <!-- Establece que el contenido ocupe toda la pantalla -->
-  <ion-row> <!-- Crea una fila dentro del layout de la página -->
-    <ion-col size="12"> <!-- Crea una columna que ocupa todo el ancho (12 columnas) -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrarme</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="custom-content" [fullscreen]="true">
+  <ion-row>
+    <ion-col size="12">
       <ion-card>
-        
-        
-        <!-- Cabecera del card con título y subtítulo -->
         <ion-card-header>
-          <ion-card-title>Registrarme</ion-card-title> <!-- Título del card -->
-          <ion-card-subtitle>Ingresa tus credenciales para revisar tus cocteles</ion-card-subtitle> <!-- Subtítulo informativo -->
+          <ion-card-title>Registrarme</ion-card-title>
+          <ion-card-subtitle>Ingresa tus credenciales para revisar tus cocteles</ion-card-subtitle>
         </ion-card-header>
 
-        <!-- Contenido del card donde se encuentra el formulario -->
         <ion-card-content>
-          <!-- Formulario con validaciones usando 'ngForm' -->
-          <form #loginForm="ngForm">
-            
-            <!-- Campo de entrada para el nombre -->
-            <ion-input 
-              [(ngModel)]="firstName" 
-              name="firstName" 
-              label="Nombre" 
-              label-placement="floating" 
-              fill="outline" 
-              placeholder="Nombre" 
-              required>
-            </ion-input>
-            <br>
-            <!-- Campo de entrada para el apellido -->
-            <ion-input 
-              [(ngModel)]="lastName" 
-              name="lastName" 
-              label="Apellido" 
-              label-placement="floating" 
-              fill="outline" 
-              placeholder="Apellido" 
-              required>
-            </ion-input>
-            <br>
-            <!-- Campo de entrada para el correo electrónico -->
-            <ion-input 
-              [(ngModel)]="email" 
-              name="email" 
-              label="Correo" 
-              label-placement="floating" 
-              fill="outline" 
-              placeholder="Correo" 
-              required 
-              email>
-            </ion-input>
-            
-            <!-- Mensajes de error que se muestran si el campo de correo es inválido -->
-            <ion-text color="danger" *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched">
-              <small *ngIf="loginForm.controls['email']?.hasError('required')">* El correo es obligatorio</small> <!-- Error si no se llena el campo -->
-              <small *ngIf="loginForm.controls['email']?.hasError('email')">* Formato de correo inválido</small> <!-- Error si el formato del correo es incorrecto -->
+          <form [formGroup]="form" (ngSubmit)="register()">
+            <ion-item>
+              <ion-label position="floating">Nombre</ion-label>
+              <ion-input formControlName="firstName"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched">
+              <small *ngIf="form.get('firstName')?.hasError('required')">* El nombre es obligatorio</small>
             </ion-text>
-
             <br>
-
-            <!-- Campo de entrada para la contraseña -->
-            <ion-input 
-              [(ngModel)]="password" 
-              name="password" 
-              label-placement="floating" 
-              fill="outline" 
-              type="password" 
-              label="Contraseña" 
-              required 
-              minlength="8">
-              <ion-input-password-toggle slot="end"></ion-input-password-toggle> <!-- Permite mostrar u ocultar la contraseña -->
-            </ion-input>
-            
-            <!-- Mensajes de error que se muestran si el campo de contraseña es inválido -->
-            <ion-text color="danger" *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched">
-              <small *ngIf="loginForm.controls['password']?.hasError('required')">* La contraseña es obligatoria</small> <!-- Error si no se llena el campo -->
-              <small *ngIf="loginForm.controls['password']?.hasError('minlength')">* La contraseña debe tener al menos 8 caracteres</small> <!-- Error si la contraseña tiene menos de 8 caracteres -->
+            <ion-item>
+              <ion-label position="floating">Apellido</ion-label>
+              <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+              <small *ngIf="form.get('lastName')?.hasError('required')">* El apellido es obligatorio</small>
             </ion-text>
-
             <br>
-
-            <!-- Campo de entrada para repetir la contraseña -->
-            <ion-input 
-              [(ngModel)]="confirmPassword" 
-              name="confirmPassword" 
-              label-placement="floating" 
-              fill="outline" 
-              type="password" 
-              label="Repetir Contraseña" 
-              required 
-              minlength="8">
-              <ion-input-password-toggle slot="end"></ion-input-password-toggle> <!-- Permite mostrar u ocultar la contraseña -->
-            </ion-input>
-            
-            <!-- Mensajes de error si las contraseñas no coinciden -->
-            <ion-text color="danger" *ngIf="confirmPassword !== password && confirmPassword && loginForm.controls['confirmPassword']?.touched">
-              <small>Las contraseñas deben coincidir</small> <!-- Error si las contraseñas no coinciden -->
+            <ion-item>
+              <ion-label position="floating">Correo</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+              <small *ngIf="form.get('email')?.hasError('required')">* El correo es obligatorio</small>
+              <small *ngIf="form.get('email')?.hasError('email')">* Formato de correo inválido</small>
             </ion-text>
-
             <br>
-
-            <!-- Botón para enviar el formulario -->
-            <!-- El botón está deshabilitado si el formulario es inválido (loginForm.invalid) o si las contraseñas no coinciden -->
-            <ion-button expand="block" [disabled]="loginForm.invalid || confirmPassword !== password" (click)="goToLogin()">Registrarme</ion-button>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+              <small *ngIf="form.get('password')?.hasError('required')">* La contraseña es obligatoria</small>
+              <small *ngIf="form.get('password')?.hasError('minlength')">* La contraseña debe tener al menos 8 caracteres</small>
+            </ion-text>
+            <br>
+            <ion-item>
+              <ion-label position="floating">Repetir Contraseña</ion-label>
+              <ion-input formControlName="confirmPassword" type="password"></ion-input>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched">
+              <small *ngIf="form.get('confirmPassword')?.hasError('required')">* La confirmación de la contraseña es obligatoria</small>
+              <small *ngIf="form.get('confirmPassword')?.hasError('minlength')">* La confirmación de la contraseña debe tener al menos 8 caracteres</small>
+            </ion-text>
+            <ion-text color="danger" *ngIf="form.value.password !== form.value.confirmPassword && form.get('confirmPassword')?.touched">
+              <small>Las contraseñas deben coincidir</small>
+            </ion-text>
+            <br>
+            <ion-button expand="block" type="submit" [disabled]="form.invalid || form.value.password !== form.value.confirmPassword">Registrarme</ion-button>
           </form>
         </ion-card-content>
       </ion-card>

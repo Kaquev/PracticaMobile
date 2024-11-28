@@ -1,36 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-//import { CapacitorSQLite, SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  standalone: true,
-  imports: [IonicModule, RouterLink, CommonModule],
+  styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isAuthenticated = false;
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.checkLoginStatus();
   }
 
   checkLoginStatus() {
-    const authToken = localStorage.getItem('authToken');
-    this.isAuthenticated = !!authToken; // Verificar si el token existe
-    if (!authToken) {
-      this.router.navigate(['/home']); // Redirigir a la página de login si no hay token
+    this.isAuthenticated = this.authService.isAuthenticated();
+    if (!this.isAuthenticated) {
+      this.router.navigate(['/login']);
     }
   }
 
   logout() {
-    // Lógica para cerrar sesión, por ejemplo, eliminar tokens de autenticación
-    localStorage.removeItem('authToken'); // Ejemplo de eliminación de token
+    this.authService.logout();
     this.isAuthenticated = false;
-    this.router.navigate(['/home']); // Redirigir a la página de inicio
+    this.router.navigate(['/login']);
   }
 }

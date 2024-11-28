@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, Validators,ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators,ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonCard, IonCardHeader, IonCardTitle, 
   IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle, 
   IonRow, IonCol, IonText } from '@ionic/angular/standalone';
+  import { AuthService } from '../../services/auth.service';
 
 import { Router } from '@angular/router';
 
@@ -15,24 +16,24 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule,IonContent, IonHeader, CommonModule, FormsModule,IonCard, IonCardHeader, IonCardTitle, 
     IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle,IonRow, IonCol, IonText]
 })
-export class LoginPage implements OnInit {
-  isAuthenticated = false;
-  form!:FormGroup
+export class LoginPage {
+  form: FormGroup;
+  isAuthenticated: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
-  ngOnInit() {
-    this.form = new FormGroup({
-      email: new FormControl(null, [
-        Validators.required,
-        Validators.email
-      ]),
-
-      password:new FormControl(null, [
-        Validators.required,
-        Validators.minLength(8)
-      ]),
-    })
+  login() {
+    if (this.form.valid) {
+      const { username, password } = this.form.value;
+      this.authService.login(username, password).catch(error => {
+        console.error('Error al iniciar sesión', error);
+      });
+    }
   }
 
   validar(){
@@ -51,3 +52,26 @@ export class LoginPage implements OnInit {
   }
 
 }
+   
+
+
+/*
+
+
+
+ngOnInit() {
+    this.form = new FormGroup({
+      email: new FormControl(null, [
+        Validators.required,
+        Validators.email
+      ]),
+
+      password:new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+    })
+  }*/
+
+
+

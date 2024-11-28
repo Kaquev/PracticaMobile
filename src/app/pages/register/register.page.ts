@@ -1,31 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle, IonRow, IonCol, IonText } from '@ionic/angular/standalone';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle, IonRow, IonCol, IonText ]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RegisterPage implements OnInit {
-  email: string = '';
-  password: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  confirmPassword: string = '';
-  constructor(private router: Router) { }
+export class RegisterPage {
+  form: FormGroup;
 
-  ngOnInit() {
-    // Initialization logic here
-    console.log('RegisterPage initialized');
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+    this.form = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
-  goToLogin(){
-    this.router.navigate(['/login']);
+  register() {
+    if (this.form.valid && this.form.value.password === this.form.value.confirmPassword) {
+      const { email, password } = this.form.value;
+      this.authService.register({ username: email, password }).catch(error => {
+        console.error('Error al registrar', error);
+      });
+    } else {
+      this.form.markAllAsTouched(); // Marcar todos los campos como tocados para mostrar errores
+    }
   }
-
 }
