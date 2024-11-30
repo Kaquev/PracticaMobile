@@ -22,15 +22,15 @@ export class LoginPage {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
     });
   }
 
   login() {
     if (this.form.valid) {
-      const { username, password } = this.form.value;
-      this.authService.login(username, password).catch(error => {
+      const { email, password } = this.form.value;
+      this.authService.login(email, password).catch(error => {
         console.error('Error al iniciar sesión', error);
       });
     }
