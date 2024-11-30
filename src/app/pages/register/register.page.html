@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrarme</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="custom-content" [fullscreen]="true">
+  <ion-row>
+    <ion-col size="12">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Registrarme</ion-card-title>
+          <ion-card-subtitle>Ingresa tus credenciales para revisar tus cocteles</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <form [formGroup]="form" (ngSubmit)="register()">
+            <ion-item>
+              <ion-label position="floating">Nombre</ion-label>
+              <ion-input formControlName="firstName"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched">
+              <small *ngIf="form.get('firstName')?.hasError('required')">* El nombre es obligatorio</small>
+            </ion-text>
+            <br>
+            <ion-item>
+              <ion-label position="floating">Apellido</ion-label>
+              <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+              <small *ngIf="form.get('lastName')?.hasError('required')">* El apellido es obligatorio</small>
+            </ion-text>
+            <br>
+            <ion-item>
+              <ion-label position="floating">Correo</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+              <small *ngIf="form.get('email')?.hasError('required')">* El correo es obligatorio</small>
+              <small *ngIf="form.get('email')?.hasError('email')">* Formato de correo inválido</small>
+            </ion-text>
+            <br>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+              <small *ngIf="form.get('password')?.hasError('required')">* La contraseña es obligatoria</small>
+              <small *ngIf="form.get('password')?.hasError('minlength')">* La contraseña debe tener al menos 8 caracteres</small>
+            </ion-text>
+            <br>
+            <ion-item>
+              <ion-label position="floating">Repetir Contraseña</ion-label>
+              <ion-input formControlName="confirmPassword" type="password"></ion-input>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-item>
+            <ion-text color="danger" *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched">
+              <small *ngIf="form.get('confirmPassword')?.hasError('required')">* La confirmación de la contraseña es obligatoria</small>
+              <small *ngIf="form.get('confirmPassword')?.hasError('minlength')">* La confirmación de la contraseña debe tener al menos 8 caracteres</small>
+            </ion-text>
+            <ion-text color="danger" *ngIf="form.value.password !== form.value.confirmPassword && form.get('confirmPassword')?.touched">
+              <small>Las contraseñas deben coincidir</small>
+            </ion-text>
+            <br>
+            <ion-button expand="block" type="submit" [disabled]="form.invalid || form.value.password !== form.value.confirmPassword">Registrarme</ion-button>
+          </form>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

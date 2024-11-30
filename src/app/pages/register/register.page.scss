@@ -1,0 +1,12 @@
+.custom-content {
+    --background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Fondo degradado */
+    background-size: cover; /* Asegura que la imagen o el degradado cubra todo el espacio */
+}
+ion-card-header, ion-card-content {
+    background-color:#ffffff !important;
+    //background-size: cover;
+  }
+
+  ion-card-title, ion-card-subtitle {
+    text-align: center;
+  }
